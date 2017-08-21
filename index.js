@@ -1,15 +1,20 @@
-module.exports = function (L, M, k ) {
-    // Converting letter L to regex
-    var regexP = new RegExp(L, "g");
-
-    // Getting the number L appears in magazine M
-    var num  = M.match(regexP).length
-
-    //Validating the number of times L appears
-    if (num >= k) {
-        return true;
-    }
-    else {
-        return false
-    }
+function* iterateEachChar() {
+  for (var i = 65; i < 116; i++) {
+    var char = yield String.fromCharCode(i);
+  }
 }
+
+module.exports = function(L, M, k) {
+  for (var char in iterateEachChar()) {
+    var regexP = new RegExp(char, "g");
+
+    numberOfCharInL = L.match(regexP).length;
+    numberOfCharInM = M.match(regexP).length;
+
+    if (numberOfCharInL !== numberOfCharInM) {
+      return false;
+    }
+  }
+
+  return true;
+};
